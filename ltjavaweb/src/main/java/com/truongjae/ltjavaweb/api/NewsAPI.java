@@ -6,6 +6,8 @@ import com.truongjae.ltjavaweb.service.NewsService;
 import com.truongjae.ltjavaweb.service.UserService;
 import lombok.AllArgsConstructor;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -25,6 +27,15 @@ public class NewsAPI {
     @DeleteMapping("/news")
     public void delete(@RequestBody long id[]){
         newsService.delete(id);
+    }
+    @GetMapping("/news")
+    public NewsOutput getByPage(@RequestParam("page")int page, @RequestParam("limit") int limit){
+        NewsOutput newsOutput = new NewsOutput();
+        newsOutput.setPage(page);
+        Pageable  pageable = PageRequest.of(page-1,limit);
+        newsOutput.setNews(newsService.findAll(pageable));
+        newsOutput.setTotalPage((int) Math.ceil((double) newsService.totalItem()/ limit));
+        return newsOutput;
     }
 
 }
