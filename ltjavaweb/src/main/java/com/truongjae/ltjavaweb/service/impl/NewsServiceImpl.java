@@ -1,6 +1,7 @@
 package com.truongjae.ltjavaweb.service.impl;
 
 import com.truongjae.ltjavaweb.dto.NewsDTO;
+import com.truongjae.ltjavaweb.dto.NewsJoin;
 import com.truongjae.ltjavaweb.entity.CategoryEntity;
 import com.truongjae.ltjavaweb.entity.NewsEntity;
 import com.truongjae.ltjavaweb.mapper.NewsMapper;
@@ -57,5 +58,10 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public int totalItem() {
         return (int) newsRepository.count();
+    }
+
+    @Override
+    public List<NewsJoin> listNewsJoin() {
+        return newsRepository.listNewsJoin();
     }
 }
